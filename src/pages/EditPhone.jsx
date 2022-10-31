@@ -70,7 +70,7 @@ function EditPhone() {
                 Phone Number
               </label>
               <input 
-                type='text' 
+                type='number' 
                 className='form-control' 
                 value={phoneNumber}
                 onChange={(e)=>setPhoneNumber(e.target.value)} 

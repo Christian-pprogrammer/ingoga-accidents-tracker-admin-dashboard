@@ -32,7 +32,7 @@ function Accidents() {
     setLoading(true);
     try{
       const res = await axios.get('/accidents');
-      setAccidents(res.data.accidents);
+      setAccidents(res.data.accidents.reverse());
       console.log(res.data.accidents)
     }catch(err) {
       alert(getError(err))
