@@ -85,7 +85,7 @@ function Accidents() {
                   </a>
                 </td>
 
-                <td style={{ verticalAlign: "middle" }}>{accident.district}</td>>
+                <td style={{ verticalAlign: "middle" }}>{accident.district}</td>
                 <td style={{ verticalAlign: "middle" }}>{accident.time}</td>
                 <td style={{ verticalAlign: "middle" }}>{accident.speed}</td>
                 <td style={{ verticalAlign: "middle" }}>{accident.plate}</td>

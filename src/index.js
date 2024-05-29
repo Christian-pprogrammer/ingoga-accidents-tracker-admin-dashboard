@@ -6,7 +6,7 @@ import App from './App';
 
 axios.interceptors.request.use((request=>{
   let apiUrl = request.url;
-  request.url = `http://127.0.0.1:5000/api/v1${apiUrl}`;
+  request.url = `https://ingoga-accident-server.onrender.com/api/v1${apiUrl}`;
   if(localStorage.getItem("token")) {
     request.headers.Authorization = `Bearer ${ JSON.parse(localStorage.getItem("token"))}`
   }
