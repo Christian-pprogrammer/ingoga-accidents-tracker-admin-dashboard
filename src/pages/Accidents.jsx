@@ -44,21 +44,18 @@ function Accidents() {
   }
   return (
     <div>
-      <div className='car-title my-4'>
+      <div className="car-title my-4">
         <h2>All accidents</h2>
-        <button className='btn btn-primary' onClick={addAccident}>Add accident</button>
+        <button className="btn btn-primary" onClick={addAccident}>
+          Add accident
+        </button>
       </div>
-      <div style={{overflow: 'auto'}}>
-        <table className="table table-bordered" style={{textAlign: 'center'}}>
+      <div style={{ overflow: "auto" }}>
+        <table className="table table-bordered" style={{ textAlign: "center" }}>
           <thead>
             <tr>
-              <th scope="col">latitude</th>
-              <th scope="col">longitude</th>
+              <th scope="col">Location</th>
               <th scope="col">district</th>
-              <th scope="col">sector</th>
-              <th scope="col">cell</th>
-              <th scope="col">street</th>
-              <th scope="col">address</th>
               <th scope="col">time</th>
               <th scope="col">speed</th>
               <th scope="col">plate</th>
@@ -67,69 +64,51 @@ function Accidents() {
             </tr>
           </thead>
           <tbody>
-            {
-              loading && <tr>
-                <td colSpan={12}>Loading accidents...</td>
+            {loading && (
+              <tr>
+                <td colSpan={7}>Loading accidents...</td>
               </tr>
-            }
-            {
-              !loading && accidents.length === 0 && (
-                <tr>
-                  <td colSpan={12}>No accidents available</td>
-                </tr>
-              )
-            }
-            {
-              accidents.map((accident) => (
+            )}
+            {!loading && accidents.length === 0 && (
+              <tr>
+                <td colSpan={7}>No accidents available</td>
+              </tr>
+            )}
+            {accidents.map((accident) => (
               <tr key={accident._id}>
-                <td scope="row" style={{verticalAlign: 'middle'}}>
-                  {accident.latitude}
+                <td style={{ verticalAlign: "middle" }}>
+                  <a
+                    href={`https://maps.google.com/?q=${accident.latitude},${accident.longitude}`}
+                    target="_blank"
+                  >
+                    {accident.latitude}, {accident.longitude}
+                  </a>
                 </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.longitude}
+
+                <td style={{ verticalAlign: "middle" }}>{accident.district}</td>>
+                <td style={{ verticalAlign: "middle" }}>{accident.time}</td>
+                <td style={{ verticalAlign: "middle" }}>{accident.speed}</td>
+                <td style={{ verticalAlign: "middle" }}>{accident.plate}</td>
+                <td style={{ verticalAlign: "middle" }}>
+                  <a href={accident.image} target="_blank">
+                    View image/video
+                  </a>
                 </td>
-                
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.district}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.sector}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.cell}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.street}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.address}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.time}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.speed}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {accident.plate}
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  <a href={accident.image} target="_blank">View image/video</a>
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  <button 
-                    className='btn btn-danger' 
-                    onClick={()=>deleteAccident(accident._id)}>Delete</button>
+                <td style={{ verticalAlign: "middle" }}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteAccident(accident._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
-              ))
-            }
-
+            ))}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }
 
 export default Accidents

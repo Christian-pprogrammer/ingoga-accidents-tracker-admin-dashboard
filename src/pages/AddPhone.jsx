@@ -9,7 +9,9 @@ function AddPhone() {
 
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [sector, setSector] = useState('');
+  const [district, setDistrict] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [category, setCategory] = useState('');
   const navigate = useNavigate();
   const {state, dispatch} = useContext(UserContext);
@@ -26,8 +28,10 @@ function AddPhone() {
     try{
       await axios.post(`/phones`, {
         phoneNumber,
-        sector,
-        category
+        district,
+        category,
+        latitude: latitude,
+        longitude: longitude
       })
       alert('phone added successfully');
       navigate('/phones');
@@ -38,54 +42,84 @@ function AddPhone() {
   }
 
   return (
-    <div className='mx-3'>
-      <div className='card m-auto' style={{maxWidth: '500px'}}>
+    <div className="mx-3">
+      <div className="card m-auto" style={{ maxWidth: "500px" }}>
         <div className="card-header">
-        <h2 className='text-center'>Add phone</h2>
+          <h2 className="text-center">Add phone</h2>
         </div>
         <div className="card-body">
           <form onSubmit={submit}>
             <div className="mb-3">
-              <label htmlFor="phoneNumber">
-                Phone Number
-              </label>
-              <input 
-                type='number' 
-                className='form-control' 
+              <label htmlFor="phoneNumber">Phone Number</label>
+              <input
+                type="number"
+                className="form-control"
                 value={phoneNumber}
-                onChange={(e)=>setPhoneNumber(e.target.value)} 
-                required />
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                required
+              />
             </div>
             <div className="mb-3">
-              <label htmlFor="sector">
-                Sector(N/A for headquarters)
-              </label>
-              <input 
-                type='text' 
-                className='form-control' 
-                value={sector}
-                onChange={(e)=>setSector(e.target.value)} 
-                required />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="category">
-                category
-              </label>
-              <select name="category" id="category" className='form-control' value={category} onChange={(e)=>setCategory(e.target.value)}>
+              <label htmlFor="category">category</label>
+              <select
+                name="category"
+                id="category"
+                className="form-control"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
                 <option value=""></option>
                 <option value="HEAD_QUARTER">head quarter</option>
                 <option value="HOSPITAL">hospital</option>
                 <option value="POLICE_STATION">police station</option>
               </select>
             </div>
-            <button type='submit' className='btn btn-primary btn-block' disabled={loading}>
-              {loading ? 'Loading...':'Add phone'}
+            {(category == "HOSPITAL" || category == "POLICE_STATION") && (
+              <>
+                <div className="mb-3">
+                  <label htmlFor="sector">District</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={district}
+                    onChange={(e) => setDistrict(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="sector">Latitude</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={latitude}
+                    onChange={(e) => setLatitude(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="sector">Longitude</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={longitude}
+                    onChange={(e) => setLongitude(e.target.value)}
+                    required
+                  />
+                </div>
+              </>
+            )}
+            <button
+              type="submit"
+              className="btn btn-primary btn-block"
+              disabled={loading}
+            >
+              {loading ? "Loading..." : "Add phone"}
             </button>
           </form>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default AddPhone

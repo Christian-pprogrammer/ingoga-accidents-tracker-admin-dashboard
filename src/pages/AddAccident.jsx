@@ -8,7 +8,7 @@ import getError from '../utils/getError';
 function AddAccident() {
 
   const [loading, setLoading] = useState(false);
-  const [carId, setCarId] = useState('');
+  const [chassisNumber, setChassisNumber] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [speed, setSpeed] = useState('');
@@ -27,14 +27,15 @@ function AddAccident() {
     formData.append('latitude', latitude);
     formData.append('longitude', longitude);
     formData.append('speed', speed);
-    formData.append('carId', carId);
+    formData.append('chassisNumber', chassisNumber);
     formData.append('image', image)
+    console.log(formData.get("image"))
     e.preventDefault();
     setLoading(true);
     try{
       await axios.post(`/accidents`, formData)
       alert('accident added successfully');
-      navigate('/accidents');
+      // navigate('/accidents');
     }catch(err) {
       alert(getError(err));
     }
@@ -58,7 +59,7 @@ function AddAccident() {
                 className='form-control' 
                 value={latitude}
                 onChange={(e)=>setLatitude(e.target.value)} 
-                required />
+                 />
             </div>
             <div className="mb-3">
               <label htmlFor="longitude">
@@ -69,7 +70,7 @@ function AddAccident() {
                 className='form-control' 
                 value={longitude}
                 onChange={(e)=>setLongitude(e.target.value)} 
-                required />
+                 />
             </div>
             <div className="mb-3">
               <label htmlFor="speed">
@@ -80,18 +81,18 @@ function AddAccident() {
                 className='form-control' 
                 value={speed}
                 onChange={(e)=>setSpeed(e.target.value)} 
-                required />
+                 />
             </div>
             <div className="mb-3">
-              <label htmlFor="carId">
-                Car id
+              <label htmlFor="chassisNumber">
+                Chassis number
               </label>
               <input 
                 type='text' 
                 className='form-control' 
-                value={carId}
-                onChange={(e)=>setCarId(e.target.value)} 
-                required />
+                value={chassisNumber}
+                onChange={(e)=>setChassisNumber(e.target.value)} 
+                 />
             </div>
             <div className="mb-3">
               <label htmlFor="image">
@@ -100,8 +101,11 @@ function AddAccident() {
               <input 
                 type='file' 
                 className='form-control' 
-                onChange={(e)=>setImage(e.target.files[0])} 
-                required />
+                onChange={(e)=>{
+                  console.log(e.target.files[0])
+                  setImage(e.target.files[0]);
+                }} 
+                 />
             </div>
           
             <button type='submit' className='btn btn-primary btn-block' disabled={loading}>

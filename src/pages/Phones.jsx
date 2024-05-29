@@ -45,64 +45,71 @@ function Phones() {
   }
   return (
     <div>
-      <div className='car-title my-4'>
+      <div className="car-title my-4">
         <h2>All Phones</h2>
-        <button className='btn btn-primary' onClick={addPhone}>Add phone</button>
+        <button className="btn btn-primary" onClick={addPhone}>
+          Add phone
+        </button>
       </div>
-      <div style={{overflow: 'auto'}}>
-        <table className="table table-bordered" style={{textAlign: 'center'}}>
+      <div style={{ overflow: "auto" }}>
+        <table className="table table-bordered" style={{ textAlign: "center" }}>
           <thead>
             <tr>
               <th scope="col">Phone number</th>
-              <th scope="col">Sector</th>
               <th scope="col">Category</th>
+              <th>District</th>
+              <th>Location</th>
               <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {
-              loading && <tr>
-                <td colSpan={5}>Loading phones...</td>
+            {loading && (
+              <tr>
+                <td colSpan={6}>Loading phones...</td>
               </tr>
-            }
-            {
-              !loading && phones.length === 0 && (
-                <tr>
-                  <td colSpan={5}>No phones available</td>
-                </tr>
-              )
-            }
-            {
-              phones.map((phone) => (
+            )}
+            {!loading && phones.length === 0 && (
+              <tr>
+                <td colSpan={6}>No phones available</td>
+              </tr>
+            )}
+            {phones.map((phone) => (
               <tr key={phone._id}>
-                <td scope="row" style={{verticalAlign: 'middle'}}>
+                <td scope="row" style={{ verticalAlign: "middle" }}>
                   {phone.phoneNumber}
                 </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  {phone.sector}
+                <td style={{ verticalAlign: "middle" }}>{phone.category}</td>
+
+                <td style={{ verticalAlign: "middle" }}>{phone.district}</td>
+                <td style={{ verticalAlign: "middle" }}>
+                  <a href={`https://maps.google.com/?q=${phone.latitude},${phone.longitude}`} target='_blank'>
+                    {phone.latitude}, {phone.longitude}
+                  </a>
                 </td>
-                
-                <td style={{verticalAlign: 'middle'}}>
-                  {phone.category}
+                <td style={{ verticalAlign: "middle" }}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => editPhone(phone._id)}
+                  >
+                    Edit
+                  </button>
                 </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  <button className='btn btn-primary' onClick={()=>editPhone(phone._id)}>Edit</button>
-                </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  <button 
-                    className='btn btn-danger' 
-                    onClick={()=>deletePhone(phone._id)}>Delete</button>
+                <td style={{ verticalAlign: "middle" }}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deletePhone(phone._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
-              ))
-            }
-
+            ))}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }
 
 export default Phones

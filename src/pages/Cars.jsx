@@ -47,68 +47,77 @@ function Cars() {
   }
   return (
     <div>
-      <div className='car-title my-4'>
+      <div className="car-title my-4">
         <h2>All cars</h2>
-        <button className='btn btn-primary' onClick={addCar}>Add car</button>
+        <button className="btn btn-primary" onClick={addCar}>
+          Add car
+        </button>
       </div>
-      <div style={{overflow: 'auto'}}>
-        <table className="table table-bordered" style={{textAlign: 'center'}}>
+      <div style={{ overflow: "auto" }}>
+        <table className="table table-bordered" style={{ textAlign: "center" }}>
           <thead>
             <tr>
-              <th scope="col">Car id</th>
+              <th scope="col">Chassis number</th>
               <th scope="col">Owner names</th>
               <th scope="col">Owner telephone</th>
               <th scope="col">Car plate</th>
+              <th>Insurance</th>
+              <th>Insurance Phone</th>
               <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {
-              loading && <tr>
-                <td colSpan={6}>Loading cars...</td>
+            {loading && (
+              <tr>
+                <td colSpan={8}>Loading cars...</td>
               </tr>
-            }
-            {
-              !loading && cars.length === 0 && (
-                <tr>
-                  <td colSpan={6}>No cars available</td>
-                </tr>
-              )
-            }
-            {
-              cars.map((car) => (
+            )}
+            {!loading && cars.length === 0 && (
+              <tr>
+                <td colSpan={8}>No cars available</td>
+              </tr>
+            )}
+            {cars.map((car) => (
               <tr key={car._id}>
-                <td scope="row" style={{verticalAlign: 'middle'}}>
-                  {car._id}
+                <td scope="row" style={{ verticalAlign: "middle" }}>
+                  {car.chassisNumber}
                 </td>
-                <td scope="row" style={{verticalAlign: 'middle'}}>
+                <td scope="row" style={{ verticalAlign: "middle" }}>
                   {car.ownerNames}
                 </td>
-                <td style={{verticalAlign: 'middle'}}>
+                <td style={{ verticalAlign: "middle" }}>
                   {car.ownerTelephone}
                 </td>
-                
-                <td style={{verticalAlign: 'middle'}}>
-                  {car.plate}
+
+                <td style={{ verticalAlign: "middle" }}>{car.plate}</td>
+                <td style={{ verticalAlign: "middle" }}>{car.insuranceName}</td>
+                <td style={{ verticalAlign: "middle" }}>
+                  {car.insurancePhone}
                 </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  <button className='btn btn-primary' onClick={()=>editCar(car._id)}>Edit</button>
+                <td style={{ verticalAlign: "middle" }}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => editCar(car._id)}
+                  >
+                    Edit
+                  </button>
                 </td>
-                <td style={{verticalAlign: 'middle'}}>
-                  <button 
-                    className='btn btn-danger' 
-                    onClick={()=>deleteCar(car._id)}>Delete</button>
+                <td style={{ verticalAlign: "middle" }}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteCar(car._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
-              ))
-            }
-
+            ))}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }
 
 export default Cars
